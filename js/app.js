@@ -1,23 +1,20 @@
-const API_KEY = `46ad7457603b9b0104e633e78cd60e16`;
+const apiKey = `2a9408a9cb0dc4f8a459a057a6ae2218`;
 const searchTemperature = () => {
-    const city = document.getElementById('city-name').value;
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
-
+    const cityinput = document.getElementById('city-name');
+    const cityText =  cityinput.value;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityText}&appid=${apiKey}&units=metric`;
     fetch(url)
-        .then(res => res.json())
-        .then(data => displayTemperature(data));
+    .then(res => res.json())
+    .then(data => displayData(data))
+    cityinput.value = '';
 }
-
-const setInnerText = (id, text) => {
+const setInnerText = (id,text) => {
     document.getElementById(id).innerText = text;
 }
 
-const displayTemperature = temperature => {
-    setInnerText('city', temperature.name);
-    setInnerText('temperature', temperature.main.temp);
-    setInnerText('condition', temperature.weather[0].main);
-    // set weather icon
-    const url = `http://openweathermap.org/img/wn/${temperature.weather[0].icon}@2x.png`;
-    const imgIcon = document.getElementById('weather-icon');
-    imgIcon.setAttribute('src', url);
+const displayData = data => {
+    console.log(data);
+    setInnerText('city',data.name);
+    setInnerText('temperature',data.main.temp);
+    setInnerText('condition',data.weather[0].main);
 }
